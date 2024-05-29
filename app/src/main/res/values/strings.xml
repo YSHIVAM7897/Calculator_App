@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name" translatable="false">Calculator</string>
+    <string name="welcome_to_sam_s_calculator">Welcome to Sam\'s Calculator !</string>
+</resources>

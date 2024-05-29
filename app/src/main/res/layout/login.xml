@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#E194AE">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginTop="10dp"
+        android:background="#9468E1"
+        android:gravity="center"
+        android:text="Welcome to Sam's Calculator !! "
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="40dp">
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/logintext"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_marginTop="40dp"
+        android:text="Login your self..!!"
+        android:textAlignment="center"
+        android:textColor="#1F4659"
+        android:gravity="center"
+        android:textSize="40dp">
+    </TextView>
+
+    <EditText
+        android:id="@+id/etUserName"
+        android:layout_width="250dp"
+        android:layout_height="69dp"
+        android:layout_marginLeft="80dp"
+        android:layout_marginTop="40dp"
+        android:ems="10"
+        android:inputType="text"
+        android:text=" Enter your Username !" />
+
+    <EditText
+        android:id="@+id/etPassword"
+        android:layout_width="250dp"
+        android:layout_height="65dp"
+        android:layout_marginLeft="80dp"
+        android:layout_marginTop="25dp"
+        android:ems="10"
+        android:inputType="textVisiblePassword"
+        android:text="Enter your password !"
+        tools:text="Enter your password " />
+
+    <Button
+        android:layout_width="110dp"
+        android:layout_height="49dp"
+        android:layout_marginLeft="130dp"
+        android:layout_marginTop="48dp"
+        android:text="Login !"
+        android:textSize="30dp"
+        android:padding="6dp"
+        android:background="#874DDA">
+
+    </Button>
+
+</LinearLayout>
