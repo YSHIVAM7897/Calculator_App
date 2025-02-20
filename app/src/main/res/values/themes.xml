@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources  xmlns:tools="http://schemas.android.com/tools">
+    <style name="Theme.Calculator" parent="android:Theme.Material.Light.NoActionBar" >
 
-    <style name="Theme.Calculator" parent="android:Theme.Material.Light.NoActionBar" />
+        <!-- Base application theme. -->
+        <!--<style name="Theme.LadliShyama" parent="Theme.MaterialComponents.DayNight.NoActionBar">-->
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">#1D1F27</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">?attr/colorPrimary</item>
+        <!-- Customize your theme here. -->
+    </style>
 </resources>

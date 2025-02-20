@@ -1,9 +1,8 @@
 package com.example.calculator;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;
-import android.renderscript.Sampler;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -12,11 +11,6 @@ import androidx.annotation.Nullable;
 
 import com.example.calculator.util.Utility;
 
-import java.text.BreakIterator;
-import java.util.Scanner;
-import java.util.logging.Logger;
-
-// import com.google.android.filament.Vie
 public class MyCalculatorActivity extends Activity {
     EditText etInput;
     EditText etOutput;
@@ -41,387 +35,277 @@ public class MyCalculatorActivity extends Activity {
     Button btnPercentage;
     Button btnEqual;
 
+    @SuppressLint("DefaultLocale")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.acitivity_main);
-        etInput = (EditText) findViewById(R.id.input_field);
-        etOutput = (EditText) findViewById(R.id.output_field);
-        btnClear = (Button) findViewById(R.id.buttonForClear);
-        btnOpenBracket = (Button) findViewById(R.id.buttonOpenBracket);
-        btnCloseBracket = (Button) findViewById(R.id.buttonCloseBracket);
-        btnDivide = (Button) findViewById(R.id.buttonDivide);
-        btn7 = (Button) findViewById(R.id.buttonNum7);
-        btn8 = (Button) findViewById(R.id.buttonNum8);
-        btn9 = (Button) findViewById(R.id.buttonNum9);
-        btnMultiply = (Button) findViewById(R.id.buttonMultiply);
-        btn4 = (Button) findViewById(R.id.buttonNum4);
-        btn5 = (Button) findViewById(R.id.buttonNum5);
-        btn6 = (Button) findViewById(R.id.buttonNum6);
-        btnSubtract = (Button) findViewById(R.id.buttonSubtract);
-        btn1 = (Button) findViewById(R.id.buttonNum1);
-        btn2 = (Button) findViewById(R.id.buttonNum2);
-        btn3 = (Button) findViewById(R.id.buttonNum3);
-        btnAddition = (Button) findViewById(R.id.buttonAddition);
-        btn0 = (Button) findViewById(R.id.buttonNum0);
-        btnDecimal = (Button) findViewById(R.id.buttonDecimal);
-        btnPercentage= (Button) findViewById(R.id.buttonPercentage);
-        btnEqual = (Button) findViewById(R.id.buttonEqual);
+        etInput = findViewById(R.id.input_field);
+        etOutput = findViewById(R.id.output_field);
+        btnClear = findViewById(R.id.buttonForClear);
+        btnOpenBracket = findViewById(R.id.buttonOpenBracket);
+        btnCloseBracket = findViewById(R.id.buttonCloseBracket);
+        btnDivide = findViewById(R.id.buttonDivide);
+        btn7 = findViewById(R.id.buttonNum7);
+        btn8 = findViewById(R.id.buttonNum8);
+        btn9 = findViewById(R.id.buttonNum9);
+        btnMultiply = findViewById(R.id.buttonMultiply);
+        btn4 = findViewById(R.id.buttonNum4);
+        btn5 = findViewById(R.id.buttonNum5);
+        btn6 = findViewById(R.id.buttonNum6);
+        btnSubtract = findViewById(R.id.buttonSubtract);
+        btn1 = findViewById(R.id.buttonNum1);
+        btn2 = findViewById(R.id.buttonNum2);
+        btn3 = findViewById(R.id.buttonNum3);
+        btnAddition = findViewById(R.id.buttonAddition);
+        btn0 = findViewById(R.id.buttonNum0);
+        btnDecimal = findViewById(R.id.buttonDecimal);
+        btnPercentage= findViewById(R.id.buttonPercentage);
+        btnEqual = findViewById(R.id.buttonEqual);
 
-        btn0.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-               // etInput.getText(); // this is for adding text one by one
-                etInput.setText(etInput.getText()+"0" );
+        btn0.setOnClickListener(v -> {
+           // etInput.getText(); // this is for adding text one by one
+            etInput.setText(String.format("%s0", etInput.getText()));
+        });
+
+        btn1.setOnClickListener(v -> etInput.setText(String.format("%s1", etInput.getText().toString())));
+
+        btn2.setOnClickListener(v -> {
+            //  Toast.makeText(MyCalculatorActivity.this, "Now number is clear !", Toast.LENGTH_LONG).show();
+            etInput.setText(String.format("%s2", etInput.getText().toString()));
+        });
+
+        btn3.setOnClickListener(view -> etInput.setText(String.format("%s3", etInput.getText().toString())));
+
+        btn4.setOnClickListener(v -> {
+            //  Toast.makeText(MyCalculatorActivity.this, "Now number is clear !", Toast.LENGTH_LONG).show();
+            // etInput.getText();
+            etInput.setText(String.format("%s4", etInput.getText().toString()));
+        });
+
+        btn5.setOnClickListener(v -> {
+            //  Toast.makeText(MyCalculatorActivity.this, "Now number is clear !", Toast.LENGTH_LONG).show();
+            etInput.setText(String.format("%s5", etInput.getText().toString()));
+        });
+
+        btn6.setOnClickListener(v -> {
+            //  Toast.makeText(MyCalculatorActivity.this, "Now number is clear !", Toast.LENGTH_LONG).show();
+            etInput.setText(String.format("%s6", etInput.getText().toString()));
+        });
+
+        btn7.setOnClickListener(view -> etInput.setText(String.format("%s7", etInput.getText().toString())));
+
+        btn8.setOnClickListener(v -> {
+            //  Toast.makeText(MyCalculatorActivity.this, "Now number is clear !", Toast.LENGTH_LONG).show();
+            // etInput.getText();
+            etInput.setText(String.format("%s8", etInput.getText().toString()));
+        });
+
+        btn9.setOnClickListener(v -> {
+              Toast.makeText(MyCalculatorActivity.this, "Now number is clear !", Toast.LENGTH_LONG).show();
+            etInput.setText(String.format("%s9", etInput.getText().toString()));
+        });
+
+        btnPercentage.setOnClickListener(v -> etInput.setText(String.format("%s%%", etInput.getText())));
+
+        btnAddition.setOnClickListener(view -> etInput.setText(String.format("%s+", etInput.getText())));
+
+        btnSubtract.setOnClickListener(v -> etInput.setText(String.format("%s-", etInput.getText())));
+
+        btnMultiply.setOnClickListener(v -> etInput.setText(String.format("%sX", etInput.getText())));
+
+        btnDivide.setOnClickListener(view -> etInput.setText(String.format("%s÷", etInput.getText())));
+
+        btnDecimal.setOnClickListener(v -> {
+            String inputText = etInput.getText().toString();
+            char lastCharacter = !inputText.isEmpty() ? inputText.charAt(inputText.length() - 1) : ' ';
+
+            if (lastCharacter != 'C' &&  lastCharacter != '=' && lastCharacter != '.') {
+
+                if (inputText.isEmpty() || lastCharacter == '+' || lastCharacter == '-' || lastCharacter == 'x'
+                        || lastCharacter == '÷'){
+                    etInput.setText(String.format("%s0.", inputText));
+
+                } else {
+                    etInput.setText(String.format("%s.", inputText));
+                }
             }
         });
 
-        btn1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                etInput.setText(etInput.getText().toString()+"1");
+        btnOpenBracket.setOnClickListener(view -> {
+            String currentText = etInput.getText().toString(); // Get the current text as a String
+
+            if (!currentText.isEmpty()) {
+                etInput.setText(String.format("%s", currentText));
+            }
+                etInput.setText(String.format("%s(", currentText));
+        });
+
+        btnClear.setOnClickListener(view -> {
+            Toast.makeText(MyCalculatorActivity.this, "Now number is clear !", Toast.LENGTH_LONG).show();
+           if(etInput.getText().length() > 0 || etOutput.getText().length() > 0){
+               etInput.setText("");
+               etOutput.setText("");
+           }
+        });
+
+        btnDivide.setOnClickListener(view -> {
+            int sizeOfInputText = etInput.getText().toString().length();
+            char lastCharacter =etInput.getText().toString().charAt(sizeOfInputText-1);
+
+            if(etInput.getText().toString().isEmpty() || etInput.getText().charAt(sizeOfInputText - 1) == '(')
+                etInput.setText(String.format("%s", etInput.getText()));
+            else {
+                if (lastCharacter != ' ' && lastCharacter != '+' && lastCharacter != '-' && lastCharacter != 'x' && lastCharacter != '%' &&
+                        lastCharacter != '÷' && lastCharacter != '(' && lastCharacter != 'C' && lastCharacter != '.' &&
+                        lastCharacter != '=') {
+                    etInput.setText(String.format("%s÷", etInput.getText()));
+                } else {
+                    etInput.setText(etInput.getText());
+                }
+
+                if (lastCharacter == '-' || lastCharacter == 'x' || lastCharacter == '+' || lastCharacter == '%') {
+                    String text = etInput.getText().toString();
+                    text = text.substring(0, text.length() - 1) + "÷";
+                    etInput.setText(text);
+                }
             }
         });
 
-        btn2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //  Toast.makeText(MyCalculatorActivity.this, "Now number is clear !", Toast.LENGTH_LONG).show();
-                etInput.setText(etInput.getText().toString()+"2");
+        btnMultiply.setOnClickListener(view -> {
+            int sizeOfInputText = etInput.getText().toString().length();
+            char lastCharacter = etInput.getText().toString().charAt(sizeOfInputText-1);
+
+            if(etInput.getText().toString().isEmpty() || etInput.getText().charAt(sizeOfInputText - 1) == '(')
+                etInput.setText(String.format("%s", etInput.getText()));
+            else {
+                if (lastCharacter != ' ' && lastCharacter != '+' && lastCharacter != '-'
+                        && lastCharacter != 'x' && lastCharacter != '%' && lastCharacter != '÷'
+                        && lastCharacter != '(' && lastCharacter != 'C' && lastCharacter != '=') {
+                    etInput.setText(String.format("%sx", etInput.getText()));
+                } else {
+                    etInput.setText(etInput.getText());
+                }
+
+                if (lastCharacter == '+' || lastCharacter == '÷' || lastCharacter == '%' || lastCharacter == '-') {
+                    String text = etInput.getText().toString();
+                    text = text.substring(0, text.length() - 1) + "x";
+                    etInput.setText(text);
+                }
             }
         });
 
-        btn3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                etInput.setText(etInput.getText().toString() + "3");
+        btnAddition.setOnClickListener(view -> {
+            int sizeOfInputText = etInput.getText().toString().length();
+            char lastCharacter =etInput.getText().toString().charAt(sizeOfInputText-1);
+
+            if(etInput.getText().toString().isEmpty() || etInput.getText().charAt(sizeOfInputText - 1) == '(')
+                etInput.setText(String.format("%s", etInput.getText()));
+            else {
+            if(lastCharacter != ' ' && lastCharacter != '+' && lastCharacter != '-'  && lastCharacter != 'x'  && lastCharacter != '%'  &&
+                    lastCharacter != '÷'  && lastCharacter != '('  && lastCharacter != 'C'  &&
+                    lastCharacter != '='){
+                etInput.setText(String.format("%s+", etInput.getText()));
+            }else{
+                etInput.setText(etInput.getText());
+            }
+
+                if (lastCharacter == '-' || lastCharacter == 'x' || lastCharacter == '÷' || lastCharacter == '%') {
+                    String text = etInput.getText().toString();
+                    text = text.substring(0, text.length() - 1) + "+";
+                    etInput.setText(text);
+                 }
             }
         });
 
-        btn4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //  Toast.makeText(MyCalculatorActivity.this, "Now number is clear !", Toast.LENGTH_LONG).show();
-                // etInput.getText();
-                etInput.setText(etInput.getText().toString()+"4" );
+        btnSubtract.setOnClickListener(view -> {
+            int sizeOfInputText = etInput.getText().toString().length();
+            char lastCharacter =etInput.getText().toString().charAt(sizeOfInputText-1);
+
+            if(lastCharacter != '+' && lastCharacter != '-' && lastCharacter != '%'
+            && lastCharacter != '('  && lastCharacter != 'C'  &&
+                    lastCharacter != '='){
+                etInput.setText(String.format("%s-", etInput.getText()));
+            }else{
+                etInput.setText(etInput.getText());
             }
+
+                if (lastCharacter == 'x' || lastCharacter == '÷' || lastCharacter == '%') {
+                    String text = etInput.getText().toString();
+                    text = text.substring(0, text.length() - 1) + "-";
+                    etInput. setText(text);
+
+            }
+
         });
 
-        btn5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //  Toast.makeText(MyCalculatorActivity.this, "Now number is clear !", Toast.LENGTH_LONG).show();
-                etInput.setText(etInput.getText().toString()+"5");
+        btnPercentage.setOnClickListener(view -> {
+            int sizeOfInputText = etInput.getText().toString().length();
+            char lastCharacter =etInput.getText().toString().charAt(sizeOfInputText-1);
+
+            if(lastCharacter != ' ' && lastCharacter != '+' && lastCharacter != '-'  && lastCharacter != 'x'  && lastCharacter != '%'  &&
+                    lastCharacter != '÷'  && lastCharacter != '('  && lastCharacter != 'C'  &&
+                    lastCharacter != '='){
+                etInput.setText(String.format("%s%%", etInput.getText()));
+            }else{
+                etInput.setText(etInput.getText());
             }
+
+            if(lastCharacter == '+' || lastCharacter == 'x'
+                    || lastCharacter == '÷' || lastCharacter == '%'){
+                if (lastCharacter == '+' || lastCharacter == 'x' || lastCharacter == '÷') {
+                    String text = etInput.getText().toString();
+                    text = text.substring(0, text.length() - 1) + "%";
+                    etInput. setText(text);
+                }
+
+            }
+
         });
 
-        btn6.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //  Toast.makeText(MyCalculatorActivity.this, "Now number is clear !", Toast.LENGTH_LONG).show();
-                etInput.setText(etInput.getText().toString()+"6");
-            }
-        });
+        btnOpenBracket.setOnClickListener(view -> {
+            int sizeOfInputText = etInput.getText().toString().length();
 
-        btn7.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                etInput.setText(etInput.getText().toString() + "7");
-            }
-        });
-
-        btn8.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //  Toast.makeText(MyCalculatorActivity.this, "Now number is clear !", Toast.LENGTH_LONG).show();
-                // etInput.getText();
-                etInput.setText(etInput.getText().toString()+"8" );
-            }
-        });
-
-        btn9.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //  Toast.makeText(MyCalculatorActivity.this, "Now number is clear !", Toast.LENGTH_LONG).show();
-                etInput.setText(etInput.getText().toString()+"9");
-            }
-        });
-
-        btnPercentage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                etInput.setText(etInput.getText()+"%");
-            }
-        });
-
-        btnAddition.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                etInput.setText(etInput.getText() + "+");
-            }
-        });
-
-        btnSubtract.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                etInput.setText(etInput.getText()+"-" );
-            }
-        });
-
-        btnMultiply.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-               etInput.setText(etInput.getText()+"X");
-            }
-        });
-
-        btnDivide.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                etInput.setText(etInput.getText() + "÷");
-            }
-        });
-
-        btnDecimal.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String inputText = etInput.getText().toString();
-                char lastCharacter = inputText.length() > 0 ? inputText.charAt(inputText.length() - 1) : ' ';
-
-                if (lastCharacter != 'C' &&  lastCharacter != '=' && lastCharacter != '.') {
-
-                    if (inputText.length() == 0 || lastCharacter == '+' || lastCharacter == '-' || lastCharacter == 'x'
-                            || lastCharacter == '÷'){
-                        etInput.setText(inputText + "0.");
-
-                    } else {
-                        etInput.setText(inputText + ".");
+            if(etInput.getText().toString().isEmpty() || etInput.getText().charAt(sizeOfInputText - 1) == '(')
+                etInput.setText(String.format("%s", etInput.getText()));
+            else {
+                    char lastCharacter = etInput.getText().toString().charAt(sizeOfInputText - 1);
+                if(lastCharacter == '1' || lastCharacter == '2' || lastCharacter == '7' || lastCharacter == '8' || lastCharacter == '9' || lastCharacter == '0'
+                        || lastCharacter == '3' || lastCharacter == '4' || lastCharacter == '5' || lastCharacter == '6'){
+                    etInput.setText(String.format("%sx(", etInput.getText()));
+                } else if ( lastCharacter != '(' && lastCharacter != 'C' &&
+                            lastCharacter != '=') {
+                        etInput.setText(String.format("%sx(", etInput.getText()));
                     }
                 }
-            }
         });
 
-        btnOpenBracket.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                etInput.setText(etInput.getText() + "(");
-            }
-        });
+        btnCloseBracket.setOnClickListener(view -> {
+            int sizeOfInputText = etInput.getText().toString().length();
 
-        btnCloseBracket.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                etInput.setText(etInput.getText() + ")");
-            }
-        });
-
-        btnClear.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(MyCalculatorActivity.this, "Now number is clear !", Toast.LENGTH_LONG).show();
-               if(etInput.getText().length() > 0 || etOutput.getText().length() > 0){
-                   etInput.setText("");
-                   etOutput.setText("");
-               }
-            }
-        });
-
-        btnAddition.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                etInput.setText(etInput.getText() + "+");
-            }
-        });
-
-        btnSubtract.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                etInput.setText(etInput.getText() + "-");
-            }
-        });
-
-        btnMultiply.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                etInput.setText(etInput.getText() + "x");
-            }
-        });
-
-        btnDivide.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                int sizeOfInputText = etInput.getText().toString().length();
-                char lastCharacter =etInput.getText().toString().charAt(sizeOfInputText-1);
-
-                if(lastCharacter != ' ' && lastCharacter != '+' && lastCharacter != '-'  && lastCharacter != 'x'  && lastCharacter != '%'  &&
-                        lastCharacter != '÷'  && lastCharacter != '('  && lastCharacter != 'C'  &&  lastCharacter != '.' &&
-                        lastCharacter != '='){
-                    etInput.setText(etInput.getText() + "÷");
-                }else{
-                    etInput.setText(etInput.getText());
-                }
-
-                    if (lastCharacter == '-' || lastCharacter == 'x' || lastCharacter == '+' || lastCharacter == '%') {
-                        String text = etInput.getText().toString();
-                        text = text.substring(0, text.length() - 1) + "÷";
-                        etInput. setText(text);
-                    }
-
-            }
-        });
-
-        btnMultiply.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                int sizeOfInputText = etInput.getText().toString().length();
-                char lastCharacter = etInput.getText().toString().charAt(sizeOfInputText-1);
-
-                if(lastCharacter != ' ' && lastCharacter != '+' && lastCharacter != '-'
-                        && lastCharacter != 'x'  && lastCharacter != '%'  && lastCharacter != '÷'
-                        && lastCharacter != '('  && lastCharacter != 'C'  && lastCharacter != '='){
-                    etInput.setText(etInput.getText() + "x");
-                }else{
-                    etInput.setText(etInput.getText());
-                }
-
-                    if ( lastCharacter == '+' || lastCharacter == '÷' || lastCharacter == '%'  || lastCharacter == '-') {
-                        String text = etInput.getText().toString();
-                        text = text.substring(0, text.length() - 1) + "x";
-                        etInput. setText(text);
-                    }
-
-            }
-        });
-
-        btnAddition.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                int sizeOfInputText = etInput.getText().toString().length();
-                char lastCharacter =etInput.getText().toString().charAt(sizeOfInputText-1);
-
-                if(lastCharacter != ' ' && lastCharacter != '+' && lastCharacter != '-'  && lastCharacter != 'x'  && lastCharacter != '%'  &&
-                        lastCharacter != '÷'  && lastCharacter != '('  && lastCharacter != 'C'  &&
-                        lastCharacter != '='){
-                    etInput.setText(etInput.getText() + "+");
-                }else{
-                    etInput.setText(etInput.getText());
-                }
-
-                if(lastCharacter == '-' || lastCharacter == 'x'
-                        || lastCharacter == '÷' || lastCharacter == '%') {
-                    if (lastCharacter == '-' || lastCharacter == 'x' || lastCharacter == '÷' || lastCharacter == '%') {
-                        String text = etInput.getText().toString();
-                        text = text.substring(0, text.length() - 1) + "+";
-                        etInput.setText(text);
-                    }
+            if (sizeOfInputText == 0) {
+                etInput.setText(String.format("%s", etInput.getText()));
+            } else {
+                char lastCharacter = etInput.getText().toString().charAt(sizeOfInputText - 1);
+                if (lastCharacter != '+' && lastCharacter != '-' && lastCharacter != 'x' && lastCharacter != '%' &&
+                        lastCharacter != '÷' && lastCharacter != '(' && lastCharacter != 'C' &&
+                        lastCharacter != '=') {
+                    etInput.setText(String.format("%s)", etInput.getText()));
                 }
             }
         });
 
-        btnSubtract.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                int sizeOfInputText = etInput.getText().toString().length();
-                char lastCharacter =etInput.getText().toString().charAt(sizeOfInputText-1);
+         btnEqual.setOnClickListener(view -> {
+             String arrayOfNum = etInput.getText().toString();
+             Double result = Utility.calculate(arrayOfNum);
+             System.out.println(result.intValue());
+             if (result % 1  == 0){
+                 etOutput.setText(String.format("%d", result.intValue()));
+             }else{
+                 etOutput.setText(String.format("%s", result));
+             }
 
-                if(lastCharacter != '+' && lastCharacter != '-' && lastCharacter != '%'
-                && lastCharacter != '('  && lastCharacter != 'C'  &&
-                        lastCharacter != '='){
-                    etInput.setText(etInput.getText() + "-");
-                }else{
-                    etInput.setText(etInput.getText());
-                }
-
-                if(lastCharacter == '+' || lastCharacter == 'x'
-                        || lastCharacter == '÷' || lastCharacter == '%'){
-                    if (lastCharacter == '+' || lastCharacter == 'x' || lastCharacter == '÷' || lastCharacter == '%') {
-                        String text = etInput.getText().toString();
-                        text = text.substring(0, text.length() - 1) + "-";
-                        etInput. setText(text);
-                    }
-
-                }
-
-            }
-        });
-
-        btnPercentage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                int sizeOfInputText = etInput.getText().toString().length();
-                char lastCharacter =etInput.getText().toString().charAt(sizeOfInputText-1);
-
-                if(lastCharacter != ' ' && lastCharacter != '+' && lastCharacter != '-'  && lastCharacter != 'x'  && lastCharacter != '%'  &&
-                        lastCharacter != '÷'  && lastCharacter != '('  && lastCharacter != 'C'  &&
-                        lastCharacter != '='){
-                    etInput.setText(etInput.getText() + "%");
-                }else{
-                    etInput.setText(etInput.getText());
-                }
-
-                if(lastCharacter == '+' || lastCharacter == 'x'
-                        || lastCharacter == '÷' || lastCharacter == '%'){
-                    if (lastCharacter == '+' || lastCharacter == 'x' || lastCharacter == '÷' || lastCharacter == '-') {
-                        String text = etInput.getText().toString();
-                        text = text.substring(0, text.length() - 1) + "%";
-                        etInput. setText(text);
-                    }
-
-                }
-
-            }
-        });
-
-        btnOpenBracket.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                int sizeOfInputText = etInput.getText().toString().length();
-                char lastCharacter =etInput.getText().toString().charAt(sizeOfInputText-1);
-
-                if(lastCharacter != ' ' && lastCharacter != '+' && lastCharacter != '-'  && lastCharacter != 'x'  && lastCharacter != '%'  &&
-                        lastCharacter != '÷'  && lastCharacter != '('  && lastCharacter != 'C'  &&
-                        lastCharacter != '='){
-                    etInput.setText(etInput.getText() + "(");
-                }else{
-                    etInput.setText(etInput.getText());
-                }
-
-            }
-        });
-
-        btnCloseBracket.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                int sizeOfInputText = etInput.getText().toString().length();
-                char lastCharacter =etInput.getText().toString().charAt(sizeOfInputText-1);
-
-                if(lastCharacter != ' ' && lastCharacter != '+' && lastCharacter != '-'  && lastCharacter != 'x'  && lastCharacter != '%'  &&
-                        lastCharacter != '÷'  && lastCharacter != '('  && lastCharacter != 'C'  &&
-                        lastCharacter != '='){
-                    etInput.setText(etInput.getText() + ")");
-                }else{
-                    etInput.setText(etInput.getText());
-                }
-
-            }
-        });
-
-         btnEqual.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String arrayOfNum = etInput.getText().toString();
-                Double result = Double.valueOf(Utility.calculate(arrayOfNum));
-                System.out.println(result.intValue());
-                if (result % 1  == 0){
-                    etOutput.setText("" + result.intValue());
-                }else{
-                    etOutput.setText("" + result);
-                }
-
-
-
-            }
-        });
+         });
 
     }
 }

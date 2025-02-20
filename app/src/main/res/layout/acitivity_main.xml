@@ -1,24 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#1D1F27"
-     >
+    android:background="#1D1F27">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="95dp"
         android:text="@string/welcome_to_sam_s_calculator"
         android:textColor="#BC9D3F"
-        android:textSize="40dp"
+        android:textSize="40sp"
         android:layout_marginTop="40dp"
-        android:textAlignment="center"
-        >
-
-    </TextView>
+        android:textAlignment="center"/>
 
         <LinearLayout
             android:id="@+id/input_output_field"

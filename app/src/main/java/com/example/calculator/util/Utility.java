@@ -1,89 +1,119 @@
 package com.example.calculator.util;
 
+import java.util.Stack;
+
 public class Utility {
-    private Double result = 0.0;
 
     // Method to calculate the result of the arithmetic expression
     public static Double calculate(String expression) {
-        Utility calculator = new Utility();
-        return calculator.calculateExpression(expression);
+        try {
+            return evaluate(expression);
+        } catch (Exception e) {
+            throw new ArithmeticException("Invalid Expression: " + e.getMessage());
+        }
     }
 
-    // Method to calculate the expression
-    public Double calculateExpression(String expression) {
-        // Split the expression into parts based on operators (+, -, *, /)
-        String[] parts = expression.split("[+\\-x÷]");
+    // Method to evaluate the expression considering parentheses and operator precedence
+    private static Double evaluate(String expression) {
+        // Removing any spaces from the expression
+        expression = expression.replaceAll(" ", "");
 
-        // Split the expression into operators
-        String[] operators = expression.split("[0-9.]+");
+        // Stack to store numbers
+        Stack<Double> numbers = new Stack<>();
 
-        // Start with the first number
-        result = Double.parseDouble(parts[0]);
+        // Stack to store operators
+        Stack<Character> operators = new Stack<>();
 
-        // Iterate through parts and apply corresponding operation
-        for (int i = 1; i < parts.length; i++) {
-            if (operators[i].equals("÷")) {
-                if (Double.parseDouble(parts[i]) != 0) {
-                    result /= Double.parseDouble(parts[i]);
-                } else {
-                    // Handle division by zero error
-                    throw new ArithmeticException("Division by zero");
+        // Variables to store the current number and operator
+        StringBuilder number = new StringBuilder();
+        boolean lastWasOperator = true;
+
+        for (int i = 0; i < expression.length(); i++) {
+            char ch = expression.charAt(i);
+
+            if (Character.isDigit(ch) || ch == '.') {
+                number.append(ch);
+                lastWasOperator = false;
+            } else if (ch == '(') {
+                operators.push(ch);
+                lastWasOperator = true;
+            } else if (ch == ')') {
+                if (number.length() > 0) {
+                    numbers.push(Double.parseDouble(number.toString()));
+                    number.setLength(0);
                 }
-            } else if (operators[i].equals("x")) {
-                result *= Double.parseDouble(parts[i]);
-            } else if (operators[i].equals("+")) {
-                result += Double.parseDouble(parts[i]);
-            } else if (operators[i].equals("-")) {
-                result -= Double.parseDouble(parts[i]);
+                while (!operators.isEmpty() && operators.peek() != '(') {
+                    performOperation(numbers, operators.pop());
+                }
+                operators.pop();
+                lastWasOperator = false;
+            } else if (isOperator(ch)) {
+                if (number.length() > 0) {
+                    numbers.push(Double.parseDouble(number.toString()));
+                    number.setLength(0);
+                }
+                while (!operators.isEmpty() && precedence(operators.peek()) >= precedence(ch)) {
+                    performOperation(numbers, operators.pop());
+                }
+                operators.push(ch);
+                lastWasOperator = true;
+            } else if (ch == '%' && !lastWasOperator) {
+                // Handle percentage operation
+                if (number.length() > 0) {
+                    double value = Double.parseDouble(number.toString());
+                    numbers.push(value / 100);
+                    number.setLength(0);
+                } else if (!numbers.isEmpty()) {
+                    double value = numbers.pop();
+                    numbers.push(value / 100);
+                }
+                lastWasOperator = true;
+            } else if (ch == '-' && (i == 0 || expression.charAt(i - 1) == '(')) {
+                number.append(ch);
+                lastWasOperator = false;
             }
         }
 
-        // Print the result
-        System.out.println("Result: " + result);
+        if (number.length() > 0) {
+            numbers.push(Double.parseDouble(number.toString()));
+        }
 
-        return result;
+        while (!operators.isEmpty()) {
+            performOperation(numbers, operators.pop());
+        }
+
+        return numbers.pop();
+    }
+ 
+    private static void performOperation(Stack<Double> numbers, char operator) {
+        double b = numbers.pop();
+        double a = numbers.isEmpty() ? 0 : numbers.pop(); // Handle single operand situations
+        switch (operator) {
+            case '+': numbers.push(a + b); break;
+            case '-': numbers.push(a - b); break;
+            case 'x': numbers.push(a * b); break;
+            case '÷':
+                if (b == 0) throw new ArithmeticException("Division by zero");
+                numbers.push(a / b);
+                break;
+            case '%': numbers.push(a * (b / 100)); break; // Treat as a percentage of a
+        }
+    }
+
+    // Helper method to determine operator precedence
+    private static int precedence(char operator) {
+        switch (operator) {
+            case '+':
+            case '-': return 1;
+            case 'x':
+            case '÷': return 2;
+            case '%': return 3; // Higher precedence for percentage operation
+            default: return -1;
+        }
+    }
+
+    // Helper method to check if a character is an operator
+    private static boolean isOperator(char ch) {
+        return ch == '+' || ch == '-' || ch == 'x' || ch == '÷' || ch == '%';
     }
 }
-
-
-
-
-
-//public class Utility {
-//    public static Double calAdd(String str) {
-//        double sum = 0;
-//        String[] str2;
-//        if (str.contains("+")) {
-//            str2 = str.split("\\+");
-//            for (String s : str2) {
-//                if (!s.isBlank()) {
-//                    sum = sum + Double.parseDouble(s);
-//                }
-//            }
-//        } else {
-//            if (!str.isBlank())
-//                sum = sum + Double.parseDouble(str);
-//        }
-//        System.out.println(sum);
-//        return sum;
-//    }
-//
-//    public static Double callMultiplication(String str) {
-//        double mul = 1;
-//        String[] str2;
-//        if (str.contains("x")) {
-//            str2 = str.split("x");
-//            for (String s : str2) {
-//                if (!s.isBlank()) {
-//                    mul = mul * Double.parseDouble(s);
-//                }
-//            }
-//        } else {
-//            if (!str.isBlank())
-//                mul = mul * Double.parseDouble(str);
-//        }
-//        System.out.println(mul);
-//        return mul;
-//    }
-//
-//}
